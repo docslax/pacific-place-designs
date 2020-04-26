@@ -1,0 +1,223 @@
+<div class="ui form" style="width:100%;padding-bottom:1.5rem;">
+  	<input type="hidden" id="personalized-pairs-type" value="family-ornament">
+  <form>  
+  <div class="ui raised segments">
+      <div class="ui field basic segment">
+        <div class="ui small header">Select Custom Details</div>
+      </div>
+      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+        <div class="column">
+          <h2 class="ui sub header">Age Group</h2>
+          <div class="ui selection dropdown field" id="age-group-dropdown">
+            <input type="hidden" id="selected-age-group" name="age_group">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Age Group</div>
+            <div class="menu">
+              <div class="item" data-value="Adult">Adult</div>
+              <div class="item" data-value="Child">Child</div>
+              <div class="item" data-value="Baby">Baby</div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <h2 class="ui sub header">Age</h2>
+          <div class="ui selection field" id="age-input">
+            <input type="text" id="age" placeholder="Age Not Required">
+          </div>
+        </div>
+      </div>
+      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+        <div class="column">
+          <h2 class="ui sub header">Gender</h2>
+          <div class="ui selection dropdown field" id="gender-dropdown">
+            <input type="hidden" id="selected-gender" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Gender</div>
+            <div class="menu">
+              <div class="item" data-value="Female">Female</div>
+              <div class="item" data-value="Male">Male</div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <h2 class="ui sub header">Skin Tone</h2>
+          <div class="ui radio checkbox" style="margin-left: 10px;">
+            <input type="radio" id="skin-tone-selection" name="skin_tone" checked="checked" value="Light">
+            <label>Light</label>
+          </div>
+          <div class="ui radio checkbox" style="margin-left: 10px;">
+            <input type="radio" id="skin-tone-selection" name="skin_tone" value="Dark">
+            <label>Dark</label>
+          </div>
+        </div>
+      </div>
+      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+        <div class="column" id="outfit-column">
+          <h2 class="ui sub header">Outfit</h2>
+          <div class="ui selection dropdown field" id="outfit-dropdown">
+            <input type="hidden" id="selected-outfit" name="outfit">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Outfit</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.outfit-type.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <h2 class="ui sub header">Dress Only</h2>
+          <div class="ui checkbox disabled" id="dress-only">
+            <!--input type="checkbox" class="disabled" id="dress-only-selection" name="dress-only-selection" value="Dress" disabled="disabled"-->
+            <input type="checkbox" id="dress-only-selection" name="dress_only">
+            <label for="dress-only-selection">Instead of Top & Bottom</label>
+          </div>
+        </div>
+      </div>
+      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+        
+        <div class="column" id="top-column">
+          <h2 class="ui sub header">Top</h2>
+          <div class="ui selection dropdown field" id="top-dropdown">
+            <input type="hidden" id="selected-top" name="top">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Top</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.top-type.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="column" id="bottom-column">
+          <h2 class="ui sub header">Bottom</h2>
+          <div class="ui selection dropdown field" id="bottom-dropdown">
+            <input type="hidden" id="selected-bottom" name="bottom">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Bottom</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.bottom-type.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+        <div class="column">
+          <h2 class="ui sub header">Hair Colour</h2>
+          <div class="ui selection dropdown field" id="hair-colour-dropdown">
+            <input type="hidden" id="selected-hair-colour" name="hair_colour">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Hair Colour</div>
+            <div class="menu">
+              {% for field in product.metafields.hair-colour %}
+              <div class="item" hair-colour-count="{{ field | last }}" data-value="{{ field | first | capitalize }}">{{ field | first | capitalize}}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <h2 class="ui sub header">Hair Style</h2>
+          <div class="ui selection dropdown field disabled hair-style" id="hair-style-dropdown">
+            <input type="hidden" class="hair-style" id="selected-hair-style" name="hair_style">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Hair Style</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.hair-style.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+          {% for field in product.metafields.hair-colour %}
+          <div class="ui selection dropdown field hair-style" id="{{ field | first }}-hair-style-dropdown" style="display: none;">
+            <input type="hidden" class="hair-style" id="selected-{{ field | first }}-hair-style" name="{{ field | first }}_hair_style">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select {{ field | first | capitalize }} Hair Style</div>
+            <div class="menu">
+              {% assign colourKey = field | first %}
+              {% assign my_limit = product.metafields.hair-colour[colourKey] %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+          <div class="ui selection dropdown field" id="kids-hair-style-dropdown" style="display: none;">
+            <input type="hidden" id="selected-kids-hair-style" name="kids_hair_style">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Kids Hair Style</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.kids-hair-style %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+        <div class="column">
+          <h2 class="ui sub header">Hat (Optional)</h2>
+          <div class="ui selection dropdown" id="hat-dropdown">
+            <input type="hidden" id="selected-hat" name="hat">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Hat</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.hat-type.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+        <div class="column">
+          <h2 class="ui sub header">Pet Type (Optional)</h2>
+          <div class="ui radio checkbox" style="margin-left: 10px;">
+            <input type="radio" id="pet_type-selection" name="pet_type" checked="checked" value="Dog">
+            <label>Dog</label>
+          </div>
+          <div class="ui radio checkbox" style="margin-left: 10px;">
+            <input type="radio" id="pet_type-selection" name="pet_type" value="Cat">
+            <label>Cat</label>
+          </div>
+        </div>
+        <div class="column">
+          <h2 class="ui sub header">Pet</h2>
+          <div class="ui selection dropdown" id="pet-dropdown">
+            <input type="hidden" id="selected-pet" name="pet">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Pet</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.pet-type.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui field basic segment">
+        <div class="field disabled">
+          <div name="addCharacter" id="addCharacter-{{ section.id }}" class="ui right primary button" onclick="formFunctions.addSelection();">Add Character</div>
+        </div>
+      </div>
+    </div>
+  	<div class="row" style="padding-top: 1em;padding-bottom: 1em;">
+        <div class="ui header details_header">Person Details</div>
+        <div class="ui two doubling cards individual_details">
+		
+        </div>
+    </div>
+    <form>
+</div>
+
+<script src="{{ 'ornament-prototype.js' | asset_url }}"></script>
+<script src="{{ 'ornament-family.js' | asset_url }}"></script>

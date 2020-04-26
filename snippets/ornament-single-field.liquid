@@ -1,0 +1,27 @@
+<div class="ui form" style="width:100%;">
+ 	<input type="hidden" id="character-family" value="{{ product.metafields.ornament-characters.short-name }}">
+    <div class="sixteen wide vertically padded field">
+
+      <div class="row">
+        <div class="ui raised segment" style="width:100%;">
+          <div class="field">
+            <label>Ornament Details</label>
+          </div>
+          <div class="field">
+            <div class="field focus">
+              <input type="text" id="select-name" name="names" placeholder="Names">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row" style="padding-top: 1em;padding-bottom: 1em;">
+        <div class="ui two doubling cards individual_details">
+          
+        </div>
+      </div>
+  </div>
+</div>
+
+<script src="{{ 'ornament-prototype.js' | asset_url }}"></script>
+<script src="{{ 'ornament-single-field.js' | asset_url }}"></script>

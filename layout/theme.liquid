@@ -1,7 +1,7 @@
 <!doctype html>
 <!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
-<head>
+<head> 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -37,6 +37,18 @@
 
   {% include 'social-meta-tags' %}
 
+  
+  <!-- custom scripts/stylesheets for semantic ui elements & jquery -->
+  {{ 'jquery-3.3.1.min.js' | asset_url | script_tag }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js" integrity="sha256-uEocYy6a0MpPLLHtYV7QAGdOeMRwE0Am2WtnOg/hBfM=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/checkbox.min.js" integrity="sha256-mlvPY4Gm+w6mgnAZ2GVMiBo5UDU7x/vaxKA5VRxdjR4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/modal.min.js" integrity="sha256-8POmd6680Gev+MdgKbVOHP+9lm+9WB1AVyuLf2WRcxc=" crossorigin="anonymous"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css" integrity="sha256-eKk/OB1/M9wf6oWV2+jUV8DpHXBFjNthcjTRvgPb4jg=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/checkbox.min.css" integrity="sha256-8++Cx28jcLQDkm+WQoPnknZ83OtbmmJe7LcSVeywy6E=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/modal.min.css" integrity="sha256-FccLM5cr47C+SE7Xjvlw+IQGY/xmreJ8yTIEwqA6OXs=" crossorigin="anonymous" />
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
 
   <script>
@@ -62,7 +74,7 @@
 
     document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
   </script>
-
+  
   <!--[if (lte IE 9) ]>{{ 'match-media.min.js' | asset_url | script_tag }}<![endif]-->
 
   {%- if template.directory == 'customers' -%}
@@ -85,7 +97,6 @@
 <body class="template-{{ template | split: '.' | first }}">
 
   <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
-
   <div id="SearchDrawer" class="search-bar drawer drawer--top" role="dialog" aria-modal="true" aria-label="{{ 'general.search.placeholder' | t }}">
     <div class="search-bar__table">
       <div class="search-bar__table-cell search-bar__form-wrapper">
@@ -125,5 +136,6 @@
   <ul hidden>
     <li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
   </ul>
+  
 </body>
 </html>

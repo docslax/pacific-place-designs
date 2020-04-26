@@ -1,0 +1,8 @@
+<div class="product-single__description rte">    
+  {{ product.description }}
+  {%- assign productMeta = product.metafields.description -%}
+  {%- for field in productMeta -%}
+  	{%- assign pageKey = field | last -%}
+  	{{ pages[pageKey].content }}
+  {%- endfor -%}
+</div>

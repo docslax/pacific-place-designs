@@ -1,0 +1,132 @@
+<div class="ui form" style="width:100%;padding-bottom:1.5rem;">
+  	<input type="hidden" id="personalized-pairs-type" value="besties-ornament">
+    <div class="ui raised segments">
+      <div class="ui field basic segment">
+        <div class="ui small header">Select Custom Details</div>
+      </div>
+      <div class="ui stackable column grid basic segment" style="margin-top: 0rem !important;">
+        <div class="column field focus" style="padding-top: 0rem !important; padding-bottom: 0rem !important;">
+            <div class="ui input fluid">
+              <input style="color:black;" type="text" id="person-name" name="person_name" placeholder="Enter Persons Name" value="">
+            </div>
+          </div>
+      </div>
+      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+        <div class="column">
+          <h2 class="ui sub header">Skin Tone</h2>
+          <div class="ui selection dropdown field" id="skin-tone-dropdown">
+            <input type="hidden" id="selected-skin-tone" name="skin_tone">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Skin Tone</div>
+            <div class="menu">
+              <div class="item" data-value="Light">Light</div>
+              <div class="item" data-value="Dark">Dark</div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <h2 class="ui sub header">Body Type</h2>
+          <div class="ui selection dropdown field" id="body-type-dropdown">
+            <input type="hidden" id="selected-body-type" name="body_type">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Body Type</div>
+            <div class="menu">
+              <div class="item" data-value="Slim">Slim</div>
+              <div class="item" data-value="Husky/Curvy">Husky/Curvy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+        <div class="column" id="outfit-column">
+          <h2 class="ui sub header">Outfit</h2>
+          <div class="ui selection dropdown field" id="outfit-dropdown">
+            <input type="hidden" id="selected-outfit" name="outfit">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Outfit</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.outfit-type.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <h2 class="ui sub header">Hat (Optional)</h2>
+          <div class="ui selection dropdown" id="hat-dropdown">
+            <input type="hidden" id="selected-hat" name="hat">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Hat</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.hat-type.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+        <div class="column">
+          <h2 class="ui sub header">Hair Colour</h2>
+          <div class="ui selection dropdown field" id="hair-colour-dropdown">
+            <input type="hidden" id="selected-hair-colour" name="hair_colour">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Hair Colour</div>
+            <div class="menu">
+              {% for field in product.metafields.hair-colour %}
+              <div class="item" hair-colour-count="{{ field | last }}" data-value="{{ field | first | capitalize }}">{{ field | first | capitalize}}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <h2 class="ui sub header">Hair Style</h2>
+          <div class="ui selection dropdown field disabled hair-style" id="hair-style-dropdown">
+            <input type="hidden" class="hair-style" id="selected-hair-style" name="hair_style">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Hair Style</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.hair-style.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+          {% for field in product.metafields.hair-colour %}
+          <div class="ui selection dropdown field hair-style" id="{{ field | first }}-hair-style-dropdown" style="display: none;">
+            <input type="hidden" class="hair-style" id="selected-{{ field | first }}-hair-style" name="{{ field | first }}_hair_style">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select {{ field | first | capitalize }} Hair Style</div>
+            <div class="menu">
+              {% assign colourKey = field | first %}
+              {% assign my_limit = product.metafields.hair-colour[colourKey] %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="ui field basic segment">
+        <div class="field">
+          <button type="button" name="addCharacter" id="addCharacter-{{ section.id }}" class="ui right primary button" onclick="formFunctions.addSelection();">
+            <span id="addCharacterText-{{ section.id }}">
+              Add Character
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  	<div class="row" style="padding-top: 1em;padding-bottom: 1em;">
+        <div class="ui header details_header">Person Details</div>
+        <div class="ui two doubling cards individual_details">
+		
+        </div>
+    </div>
+</div>
+
+<script src="{{ 'ornament-prototype.js' | asset_url }}"></script>
+<script src="{{ 'ornament-couples.js' | asset_url }}"></script>

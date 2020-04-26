@@ -1,0 +1,76 @@
+<div class="ui form" style="width:100%;padding-bottom:1.5rem;">
+  	<input type="hidden" id="personalized-pairs-type" value="{{ product.metafields.personalized-pairs.type }}">
+    <div class="ui raised segments">
+      <div class="ui field basic segment">
+        <label>Select Custom Details</label>
+      </div>
+      <div class="ui stackable two column grid basic segment">
+        <div class="column">
+          <div class="ui selection dropdown" id="hair-dropdown">
+            <input type="hidden" id="selected-hair" name="hair-type">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Hair</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.hair-type.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="ui selection dropdown" id="shirt-pants-dropdown">
+            <input type="hidden" id="selected-shirt-pants" name="shirt-pants-type">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Shirt/Pants</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.shirt-pants-type.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui stackable basic segment">
+        <div class="inline fields">
+          <div class="field">
+            <div class="ui radio checkbox checked">
+              <input type="radio" name="pet-selection" id="pet-selection" value="cat" checked="checked" >
+              <label>Cat</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="pet-selection" id="pet-selection" value="dog">
+              <label>Dog</label>
+            </div>
+          </div>
+        </div>
+        <div class="ui selection dropdown" id="cat-dropdown">
+          <input type="hidden" id="selected-cat" name="cat-type">
+          <i class="dropdown icon"></i>
+          <div class="default text">Cat</div>
+          <div class="menu">
+            {% assign my_limit = product.metafields.cat-type.count %}
+            {% for i in (1..my_limit) %}
+            <div class="item" data-value="{{ i }}">{{ i }}</div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ui selection dropdown" id="dog-dropdown">
+          <input type="hidden" id="selected-dog" name="dog-type">
+          <i class="dropdown icon"></i>
+          <div class="default text">Dog</div>
+          <div class="menu">
+            {% assign my_limit = product.metafields.dog-type.count %}
+            {% for i in (1..my_limit) %}
+            <div class="item" data-value="{{ i }}">{{ i }}</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script src="{{ 'man-dog-cat-pairs.js' | asset_url }}"></script>

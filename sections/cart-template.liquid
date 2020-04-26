@@ -33,8 +33,9 @@
                 {% unless item.variant.title contains 'Default' %}
                   <div class="cart__meta-text">
                     {% for option in item.product.options %}
-                      {{ option }}: {{ item.variant.options[forloop.index0] }}<br/>
+                    	{{ option }}: {{ item.variant.options[forloop.index0] }}<br/>
                     {% endfor %}
+                   	
                   </div>
                 {% endunless %}
 
@@ -48,22 +49,29 @@
                     - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
                 {% endcomment %}
                 {%- assign property_size = item.properties | size -%}
+                <!- template suffix is {{ item.product.template_suffix }} -!>
                 {% if property_size > 0 %}
                   <div class="cart__meta-text">
-                    {% for p in item.properties %}
-                      {% unless p.last == blank %}
-                        {{ p.first }}:
+                    {%- comment -%} START: property details customization {%- endcomment -%}
+                    {% if item.product.template_suffix == 'ornament' %}
+                      {% include 'cart-ornament-details' %}
+                    {% else %}
+                      {% for p in item.properties %}
+                        {% unless p.last == blank %}
+                          {{ p.first }}:
 
-                        {% comment %}
-                          Check if there was an uploaded file associated
-                        {% endcomment %}
-                        {% if p.last contains '/uploads/' %}
-                          <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
-                        {% else %}
-                          {{ p.last }}
-                        {% endif %}
-                      {% endunless %}
-                    {% endfor %}
+                          {% comment %}
+                            Check if there was an uploaded file associated
+                          {% endcomment %}
+                          {% if p.last contains '/uploads/' %}
+                            <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                          {% else %}
+                            {{ p.last }}
+                          {% endif %}
+                        {% endunless %}
+                      {% endfor %}
+                    {% endif %}
+                    {%- comment -%} END {%- endcomment -%}
                   </div>
                 {% endif %}
 

@@ -1,0 +1,13 @@
+
+<ul class="ui list">
+  {% unless item.properties['Header'] == blank %} 
+  	<li>Header:&nbsp;{{ item.properties['Header'] }}</li>
+  {% endunless %}
+  {% for p in item.properties %}
+  	{% if p.first != 'Header' %}
+  		{% assign detailValues = p.last | split: ',' %}
+  		<!-- {{ detailValues[0] }} -->
+  		<li>{{ p.first }} is&nbsp;{{ p.last }}</li>
+  	{% endif %}
+  {% endfor %}
+</ul>

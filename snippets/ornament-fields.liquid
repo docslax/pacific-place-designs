@@ -1,0 +1,95 @@
+<div class="ui form" style="width:100%;">
+ 	<input type="hidden" id="character-family" value="{{ product.metafields.ornament-characters.short-name }}">
+    <div class="sixteen wide vertically padded field">
+      <div class="row">
+        <div class="ui form raised segment" style="width:100%;">
+          <div class="inline fields">
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="header-selection" checked="checked" value="">
+                <label>Family Name</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="header-selection" value="Merry Christmas 2019">
+                <label>Merry Christmas 2019</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="header-selection" value="Merry Christmas">
+                <label>Merry Christmas</label>
+              </div>
+            </div>
+          </div>
+          <div class="field focus">
+            <div class="ui input">
+              <input style="color:black;" type="text" id="header-text" name="properties[Header]" placeholder="e.g. The Smith Family 2019" value="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="ui form raised segment" style="width:100%;">
+
+          <div class="field">
+            <label>Select Character Details</label>
+
+            <div class="ui selection dropdown">
+              <input type="hidden" id="select-character" name="character">
+              <i class="dropdown icon"></i>
+              <div class="default text">Select Character</div>
+              <div class="menu">
+                {% assign my_limit = product.metafields.ornament-characters.count %}
+                {% for i in (1..my_limit) %}
+                	<div class="item" data-value="{{ i }}">{{ i }}</div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="field focus">
+            <input type="text" id="select-name" placeholder="Name">
+          </div>
+
+
+          <div class="field">
+            <div class="ui selection dropdown age-group">
+              <input type="hidden" id="select-aging" name="aging">
+              <i class="dropdown icon"></i>
+              <div class="default text">Age Group</div>
+              <div class="menu">
+                <div class="item" data-value="Child">Child</div>
+                <div class="item" data-value="Adult">Adult</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field disabled focus">
+            
+              <input type="text" id="select-age" placeholder="Age Not Required">
+           
+          </div>
+
+          <div class="field">
+            <button type="button" name="addCharacter" id="addCharacter-{{ section.id }}" class="ui right floated btn " onclick="formFunctions.addSelection();">
+              <span id="addCharacterText-{{ section.id }}">
+                Add Character
+              </span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+      
+      <div class="row" style="padding-top: 1em;padding-bottom: 1em;">
+        <div class="ui header details_header">Selected Characters</div>
+        <div class="ui two doubling cards individual_details">
+          
+        </div>
+      </div>
+  </div>
+</div>
+
+<script src="{{ 'ornament-fields.js' | asset_url }}"></script>

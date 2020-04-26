@@ -1,0 +1,43 @@
+<div class="ui form" style="width:100%;">
+ 	<input type="hidden" id="character-family" value="{{ product.metafields.ornament-characters.short-name }}">
+    <div class="sixteen wide vertically padded field">
+      
+      <div class="row">
+        <div class="ui raised segment" style="width:100%;">
+
+          <div class="field">
+            <label>Select Character Details</label>
+          </div>
+          <div class="field">
+            <div class="field focus">
+              <input type="text" id="child-name" name="child_name" placeholder="Name">
+            </div>
+          </div>
+          
+          <div class="ui selection dropdown fluid field" id="character-dropdown">
+            <input type="hidden" id="selected-character" name="character">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Character</div>
+            <div class="menu">
+              {% assign my_limit = product.metafields.ornament-characters.count %}
+              {% for i in (1..my_limit) %}
+              <div class="item" data-value="{{ i }}">{{ i }}</div>
+              {% endfor %}
+            </div>
+          </div>
+
+        </div>
+          
+        </div>
+      </div>
+      
+      <div class="row" style="padding-top: 1em;padding-bottom: 1em;">
+        <div class="ui two doubling cards individual_details">
+          
+        </div>
+      </div>
+  </div>
+</div>
+
+<script src="{{ 'ornament-prototype.js' | asset_url }}"></script>
+<script src="{{ 'ornament-kid-character.js' | asset_url }}"></script>

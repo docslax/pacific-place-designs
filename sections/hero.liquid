@@ -1,3 +1,4 @@
+<div style="text-align:center;">
 <div class="hero hero--{{ section.settings.hero_size }}{% if section.settings.title != blank or section.settings.text != blank or section.settings.button_label != blank %} hero__overlay{% endif %} box ratio-container lazyload js"
      {% if section.settings.image %}
      data-bgset="{% include 'bgset', image: section.settings.image %}"
@@ -25,6 +26,7 @@
       {% endif %}
     </div>
   </div>
+</div>
 </div>
 
 <noscript>
