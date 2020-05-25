@@ -22,14 +22,11 @@
   {%- comment -%} START: description location & custom form details {%- endcomment -%}
   {%- comment -%} TODO: this can be controlled by metafields as well {%- endcomment -%}
   {%- assign product_template = product.template_suffix -%}
-  {% case product_template %}
-  	{% when 'ornament' %}
-  		{%- assign display_left = true %}
-  	{% when 'personalized-pairs' %}
-  		{%- assign display_left = true %}
-  	{% else %}
-  		{%- assign display_left = false %}
-  {% endcase %}
+  {% if product_template == 'ornament' or product_template == 'personalized-pairs' or product_template == 'graduation' %}
+  	{%- assign display_left = true %}
+  {% else %}
+  	{%- assign display_left = false %}
+  {% endif %}
   
   {% case product_template %}
   	{% when 'ornament' %}
@@ -40,6 +37,8 @@
   		{%- endif -%}
   	{% when 'personalized-pairs' %}
   		{%- assign form_snippet = product.metafields.personalized-pairs.field-snippet -%}
+  	{% when 'graduation' %}
+  		{%- assign form_snippet = product.metafields.graduation.field-snippet -%}
  	{% when 'ornament-pairs' --%}
   		{%- assign form_snippet = 'ornament-pairs-fields' -%}
  	{% when 'ornament-family' %}
