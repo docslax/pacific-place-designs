@@ -1,164 +1,103 @@
 <div class="ui form" style="width:100%;padding-bottom:1.5rem;">
-  	{% assign person_limit = 2 %}
+    {% assign person_limit = 2 %}
     {%- if product.metafields.person-limit.count != blank %}
-		{% assign person_limit = product.metafields.person-limit.count %}
+    {% assign person_limit = product.metafields.person-limit.count %}
     {%- endif %}
-  	<input type="hidden" id="person_limit" value="{{ person_limit }}">
-  	<input type="hidden" id="personalized-pairs-type" value="besties-ornament">
-    <div class="ui raised segments">
-      <div class="ui field basic segment">
-        <div class="ui small header">Select Custom Details</div>
-      </div>
-      <div class="ui stackable column grid basic segment" style="margin-top: 0rem !important;">
-        <div class="column field focus" style="padding-top: 0rem !important; padding-bottom: 0rem !important;">
-            <div class="ui input fluid">
-              <input style="color:black;" type="text" id="person-name" name="person-name" placeholder="Enter Persons Name" value="">
+    <input type="hidden" id="page_url" value="{{ product.url }}">
+    <input type="hidden" id="person_limit" value="{{ person_limit }}">
+    <input type="hidden" id="ornament-snippet" value="{{ product.metafields.ornament.field-snippet }}">
+
+	{% comment %} handle the product variants {% endcomment %}
+    {% unless product.has_only_default_variant %}
+    <input type="hidden" id="id" name="id" value="" />
+    <div class="ui raised segment grid">
+        {% for option in product.options_with_values %}
+        <div class="basic eight wide column">
+            <label for="SingleOptionSelector-{{ forloop.index0 }}" style="font-weight: bold;">{{ option.name }}</label>
+            <div class="ui selection dropdown" id="SingleOptionSelector-{{ forloop.index0 }}">
+                <input type="hidden" id="SingleOptionSelector-{{ forloop.index0 }}">
+                <i class="dropdown icon"></i>
+                <div class="default text">Select {{ option.name }}</div>
+                <div class="menu">
+                    {% for value in option.values %}
+                    <div class="item" data-value="{{ value | escape }}" {% if option.selected_value == value %}
+                        selected="selected" {% endif %}>{{ value }}</div>
+                    {% endfor %}
+                </div>
             </div>
-          </div>
-      </div>
-      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
-        <div class="column">
-          <h2 class="ui sub header">Skin Tone</h2>
-          <div class="ui selection dropdown" id="skin-tone-dropdown">
-            <input type="hidden" id="selected-skin-tone" name="skin-tone-type">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select Skin Tone</div>
-            <div class="menu">
-              {% assign my_limit = product.metafields.skin-tone-type.count %}
-              {% for i in (1..my_limit) %}
-              <div class="item" data-value="{{ i }}">{{ i }}</div>
-              {% endfor %}
-            </div>
-          </div>
         </div>
-        <div class="column">
-          <h2 class="ui sub header">Body Type</h2>
-          <div class="ui selection dropdown" id="body-type-dropdown">
-            <input type="hidden" id="selected-body-type" name="body-type">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select Body Type</div>
-            <div class="menu">
-              <div class="item" data-value="Slim">Slim</div>
-              <div class="item" data-value="Curvy">Curvy</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
-        <div class="column">
-          <h2 class="ui sub header">Top</h2>
-          <div class="ui selection dropdown" id="top-dropdown">
-            <input type="hidden" id="selected-top" name="top-type">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select Top</div>
-            <div class="menu">
-              {% assign my_limit = product.metafields.top-type.count %}
-              {% for i in (1..my_limit) %}
-              <div class="item" data-value="{{ i }}">{{ i }}</div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <h2 class="ui sub header">Bottom</h2>
-          <div class="ui selection dropdown" id="bottom-dropdown">
-            <input type="hidden" id="selected-bottom" name="bottom-type">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select Bottom</div>
-            <div class="menu">
-              {% assign my_limit = product.metafields.bottom-type.count %}
-              {% for i in (1..my_limit) %}
-              <div class="item" data-value="{{ i }}">{{ i }}</div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
-        <div class="column">
-          <h2 class="ui sub header">Hair Color</h2>
-          <div class="ui selection dropdown" id="hair-color-dropdown">
-            <input type="hidden" id="selected-hair-color" name="hair-color-type">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select Hair Color</div>
-            <div class="menu">
-              {% for field in product.metafields.hair-color %}
-              <div class="item" hair-color-count="{{ field | last }}" data-value="{{ field | first | capitalize }}">{{ field | first | capitalize}}</div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <h2 class="ui sub header">Hair Style</h2>
-          <div class="ui selection disabled dropdown" id="hair-style-dropdown">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select Hair Style</div>
-            <div class="menu">
-              
-            </div>
-          </div>
-          {% for field in product.metafields.hair-color %}
-          <div class="ui selection dropdown" id="{{ field | first }}-hair-style-dropdown" style="display: none;">
-            <input type="hidden" id="selected-{{ field | first }}-hair-style" name="hair-style-type">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select {{ field | first | capitalize }} Hair Style</div>
-            <div class="menu">
-              {% assign colorKey = field | first %}
-              {% assign my_limit = product.metafields.hair-color[colorKey] %}
-              {% for i in (1..my_limit) %}
-              <div class="item" data-value="{{ i }}">{{ i }}</div>
-              {% endfor %}
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
-        <div class="column">
-          <h2 class="ui sub header">Drink</h2>
-          <div class="ui selection dropdown" id="drink-dropdown">
-            <input type="hidden" id="selected-drink" name="drink-type">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select Drink</div>
-            <div class="menu">
-              {% assign my_limit = product.metafields.drink-type.count %}
-              {% for i in (1..my_limit) %}
-              <div class="item" data-value="{{ i }}">{{ i }}</div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <h2 class="ui sub header">Accessory (Optional)</h2>
-          <div class="ui selection dropdown" id="accessory-dropdown">
-            <input type="hidden" id="selected-accessory" name="accessory-type">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select Accessory</div>
-            <div class="menu">
-              {% assign my_limit = product.metafields.accessory-type.count %}
-              {% for i in (1..my_limit) %}
-              <div class="item" data-value="{{ i }}">{{ i }}</div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ui field basic segment">
-        <div class="field">
-          <button type="button" name="addCharacter" id="addCharacter-{{ section.id }}" class="ui right primary button" onclick="formFunctions.addSelection();">
-            <span id="addCharacterText-{{ section.id }}">
-              Add Character
-            </span>
-          </button>
-        </div>
-      </div>
+        {% endfor %}
     </div>
-  	<div class="row" style="padding-top: 1em;padding-bottom: 1em;">
+    {% endunless %}
+
+    <div class="ui raised segments" id="details">
+        <div class="ui field basic segment">
+            <div class="ui small header">Select Custom Details</div>
+		</div>
+		{% comment %} handle text fields first {% endcomment %}
+        <div class="ui stackable column grid basic segment" style="margin-top: 0rem !important;">
+            <div class="column field focus" style="padding-top: 0rem !important; padding-bottom: 0rem !important;">
+                <div class="ui input fluid field">
+                    <input style="color:black;" type="text" id="persons-name" name="persons-name"
+                        placeholder="Enter Persons Name" value="">
+                </div>
+            </div>
+		</div>
+		{% comment %} handle dropdowns {% endcomment %}
+        <div class="ui stackable two column grid basic segment" style="margin-top: 0rem !important;">
+          {%- assign totalDropdowns = product.metafields.dropdowns.size -%}
+          {%- for i in (1..totalDropdowns) -%}
+                {%- for dropdown in product.metafields.dropdowns -%}
+                    {%- assign dropdownDetails = dropdown[1] -%}
+                    {%- assign dropdownKey = dropdown[0] -%}
+                    {%- if dropdownDetails.order == i -%}
+                        <div class="column">
+                            <h2 class="ui sub header">{{ dropdownDetails.name }}</h2>
+                            <div class="ui selection dropdown" id="{{ dropdownKey }}-dropdown">
+                                <input type="hidden" id="selected-{{ dropdownKey }}" name="{{ dropdownKey }}-type"
+                                    image_name="{{ dropdownDetails.image | default: 'choices_first_page' }}"
+                                    placeholder="{{ dropdownDetails.default }}" alt="{{ dropdownDetails.name }}"
+                                    optional="{{ dropdownDetails.optional }}" optional_after_first="{{ dropdownDetails.optional_after_first | default: 'false' }}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">{{ dropdownDetails.default }}</div>
+                                <div class="menu">
+                                    {%- if dropdownDetails.list != blank -%}
+                                        {%- assign listItems = dropdownDetails.list | split: "," -%}
+                                        {%- for listItem in listItems -%}
+                                            <div class="item" data-value="{{ listItem }}">{{ listItem }}</div>
+                                        {%- endfor -%}
+                                    {%- else -%}
+                                        {%- assign my_limit = dropdownDetails.count -%}
+                                        {%- for i in (1..my_limit) -%}
+                                            <div class="item" data-value="{{ i }}">{{ i }}</div>
+                                        {%- endfor -%}
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        </div>
+                        {%- break -%}
+                    {%- endif -%}
+                {%- endfor -%}
+            {%- endfor -%}
+        </div>
+        <div class="ui field basic segment">
+            <div class="field">
+                <button type="button" name="addCharacter" id="addCharacter-{{ section.id }}"
+                    class="ui right primary button" onclick="formFunctions.addSelection();">
+                    <span id="addCharacterText-{{ section.id }}">
+                        Add Character
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="padding-top: 1em;padding-bottom: 1em;">
         <div class="ui header details_header">Person Details</div>
         <div class="ui two doubling cards individual_details">
-		
+
         </div>
     </div>
 </div>
 
-<script src="{{ 'ornament-pairs.js' | asset_url }}"></script>
+{{ 'ornament-pairs.js' | asset_url | script_tag }}

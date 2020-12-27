@@ -181,6 +181,7 @@
             {% unless product.has_only_default_variant %}
         		{%- if product_template == 'personalized-pairs' -%}
         			{% include 'variant-options-pairs' %}
+        		{%- elsif product_template == 'ornament' -%}
         		{%- else -%}
         			{% include 'variant-options-default' %}
         		{%- endif -%}
@@ -211,6 +212,8 @@
         	{%- endif -%}
         	{%- comment -%} END {%- endcomment -%}
         	
+        	{% comment %}
+        	<!-- NO ADD TO CART BUTTON -->
             <div class="product-form__item product-form__item--submit{% if section.settings.enable_payment_button %} product-form__item--payment-button{% endif %}{% if product.has_only_default_variant %} product-form__item--no-variants{% endif %}">
               <button type="submit" name="add" id="AddToCart-{{ section.id }}" {% unless current_variant.available %}disabled="disabled"{% endunless %} class="btn product-form__cart-submit{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}">
                 <span id="AddToCartText-{{ section.id }}">
@@ -225,6 +228,8 @@
                 {{ form | payment_button }}
               {% endif %}
             </div>
+        	{% endcomment %}
+        
           {% endform %}
         </div>
 

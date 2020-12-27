@@ -1376,6 +1376,15 @@ h6 {
     font-weight: inherit;
   }
 }
+//START: custom header size for H1 in production description for dynamic desc template
+.product-single__description > h1 {
+  font-size: em(floor($font-size-header * 0.70));
+  
+  @include media-query($small) {
+    font-size: em(floor($font-size-header * 0.70));
+  }
+}
+//END: custom header size for H1 in production description
 h1 {
   font-size: em(floor($font-size-header * 1.35));
   text-transform: none;

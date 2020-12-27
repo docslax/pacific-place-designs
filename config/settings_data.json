@@ -57,14 +57,12 @@
         "type": "header",
         "settings": {
           "align_logo": "left",
-          "logo": "",
           "logo_max_width": 50,
           "main_linklist": "all-collections",
           "message": true,
           "home_page_only": false,
-          "message_text": "Turnaround is currently 2-3 weeks",
-          "message_link": "",
-          "color_bg": "#c8eeee",
+          "message_text": "OUR SHOP IS CURRENTLY CLOSED FOR NEW ORDERS",
+          "color_bg": "#f05252",
           "color_text": "#000000"
         }
       },
@@ -77,8 +75,7 @@
           "text": "",
           "hero_size": "x-small",
           "text_size": "large",
-          "button_label": "",
-          "button_link": ""
+          "button_label": ""
         }
       },
       "slideshow": {
@@ -91,8 +88,7 @@
               "alignment": "center center",
               "slide_title": "Mama Bear",
               "subheading": "This floral design looks fabulous on both our drinkware and apparel items.  Yes, we can customize the name for all the different Moms, Step-Moms, Aunties, and Grandmas in your life.",
-              "button_label": "",
-              "button_link": ""
+              "button_label": ""
             }
           },
           "1541902619750": {
@@ -102,8 +98,7 @@
               "alignment": "center center",
               "slide_title": "Papa Bear",
               "subheading": "This design looks great on both our drinkware & apparel items.  Yes, we can customize the name if you are searching for that perfect gift for Dads, Step-Dads, Uncles, Grandpas, or Papas.",
-              "button_label": "",
-              "button_link": ""
+              "button_label": ""
             }
           },
           "slideshow-1": {
@@ -113,8 +108,7 @@
               "alignment": "center center",
               "slide_title": "Don't miss our \"Sassy\" line of designs",
               "subheading": "These make perfect gifts for those special people in your life.",
-              "button_label": "",
-              "button_link": ""
+              "button_label": ""
             }
           },
           "1553299291930": {
@@ -124,8 +118,7 @@
               "alignment": "center center",
               "slide_title": "Graphic Tanks & Tees",
               "subheading": "Our graphics are printed directly into the surface of the garment, making them super durable and easy to care for.",
-              "button_label": "",
-              "button_link": ""
+              "button_label": ""
             }
           },
           "1553299414581": {
@@ -135,8 +128,7 @@
               "alignment": "center center",
               "slide_title": "Tumblers for Every Occasion",
               "subheading": "",
-              "button_label": "",
-              "button_link": ""
+              "button_label": ""
             }
           },
           "1553299423971": {
@@ -146,8 +138,7 @@
               "alignment": "center center",
               "slide_title": "Shirts for Special Occasions & Events",
               "subheading": "",
-              "button_label": "",
-              "button_link": ""
+              "button_label": ""
             }
           }
         },
@@ -186,8 +177,7 @@
           "layout": "left",
           "title": "Custom Drinkware for Every Occasion",
           "text": "<p>Take a look through our premade designs, or shoot us a message if you are interested in a custom design!<\/p>",
-          "button_label": "",
-          "button_link": ""
+          "button_label": ""
         }
       },
       "footer": {
@@ -276,8 +266,7 @@
       "sections": {
         "header": {
           "type": "header",
-          "settings": {
-          }
+          "settings": {}
         },
         "hero": {
           "type": "hero",
@@ -290,21 +279,18 @@
           "blocks": {
             "slideshow-0": {
               "type": "image",
-              "settings": {
-              }
+              "settings": {}
             },
             "slideshow-1": {
               "type": "image",
-              "settings": {
-              }
+              "settings": {}
             }
           },
           "block_order": [
             "slideshow-0",
             "slideshow-1"
           ],
-          "settings": {
-          }
+          "settings": {}
         },
         "featured-collections": {
           "type": "collection",
@@ -314,31 +300,26 @@
         },
         "feature-row": {
           "type": "feature-row",
-          "settings": {
-          }
+          "settings": {}
         },
         "footer": {
           "type": "footer",
           "blocks": {
             "link_list": {
               "type": "link_list",
-              "settings": {
-              }
+              "settings": {}
             },
             "link_list-1": {
               "type": "link_list",
-              "settings": {
-              }
+              "settings": {}
             },
             "text": {
               "type": "text",
-              "settings": {
-              }
+              "settings": {}
             },
             "newsletter": {
               "type": "newsletter",
-              "settings": {
-              }
+              "settings": {}
             }
           },
           "block_order": [
@@ -347,8 +328,7 @@
             "text",
             "newsletter"
           ],
-          "settings": {
-          }
+          "settings": {}
         }
       },
       "content_for_index": [
@@ -488,23 +468,20 @@
         },
         "1492033809691": {
           "type": "map",
-          "settings": {
-          }
+          "settings": {}
         },
         "1492033877875": {
           "type": "quotes",
           "blocks": {
             "1492033877875-0": {
               "type": "quote",
-              "settings": {
-              }
+              "settings": {}
             }
           },
           "block_order": [
             "1492033877875-0"
           ],
-          "settings": {
-          }
+          "settings": {}
         },
         "1492033924902": {
           "type": "custom-content",
@@ -530,18 +507,15 @@
           "blocks": {
             "1492096252560-0": {
               "type": "featured_collection",
-              "settings": {
-              }
+              "settings": {}
             },
             "1492096252560-1": {
               "type": "featured_collection",
-              "settings": {
-              }
+              "settings": {}
             },
             "1492096252560-2": {
               "type": "featured_collection",
-              "settings": {
-              }
+              "settings": {}
             }
           },
           "block_order": [
@@ -580,23 +554,19 @@
           "blocks": {
             "link_list": {
               "type": "link_list",
-              "settings": {
-              }
+              "settings": {}
             },
             "link_list-1": {
               "type": "link_list",
-              "settings": {
-              }
+              "settings": {}
             },
             "text": {
               "type": "text",
-              "settings": {
-              }
+              "settings": {}
             },
             "newsletter": {
               "type": "newsletter",
-              "settings": {
-              }
+              "settings": {}
             }
           },
           "block_order": [
@@ -605,8 +575,7 @@
             "text",
             "newsletter"
           ],
-          "settings": {
-          }
+          "settings": {}
         }
       },
       "content_for_index": [

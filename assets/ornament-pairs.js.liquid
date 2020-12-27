@@ -1,0 +1,244 @@
+const capitalize = (s) => {
+	if (typeof s !== 'string') return ''
+	return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
+var productJSON;
+
+var formFunctions = {
+		sectionId: $('div[data-section-type="product"]').attr('data-section-id'),
+		initialize: () => {
+			//added code to emulate a thumbnail click 
+			// when the associated drop down is clicked
+			// this works better in full mode rather than 
+			// mobile mode.
+
+
+			//sisters has a variant drop drown, others may well too the number is used
+			// to determine the number of persons added to a single order
+			$('div#SingleOptionSelector-0')
+				.on('change', () => {
+					if ($('input#SingleOptionSelector-0').length > 0) {
+						$('dl.price').removeClass('price--unavailable').removeAttr('aria-hidden');
+						$('span.price-item--regular').text(productJSON.product.variants.find(item => {
+							return item.title == $('input#SingleOptionSelector-0').val()
+						}).price);
+
+						$('input#id').val(productJSON.product.variants.find(item => {
+							return item.title == $('input#SingleOptionSelector-0').val()
+						}).id);
+
+						//pull the numeric value from the string
+						var count = Number.parseInt($('input#SingleOptionSelector-0').val().slice(' ')[0]);
+						$('input#person_limit').val(count);
+
+						//handle specific use-case when count is decreased after characters are added
+						if ($('.individual_details').children().length > count) {
+							//we need to remove the last one added
+							formFunctions.removeSelection($($('i.delete[alt=Delete]').last()));
+						}
+
+						formFunctions.addButtonControl();
+					}
+				});
+
+			$('div[id$=dropdown]').each((i, e) => {
+				var ddName = $(e).children('input').attr('name');
+				var imageName = $(e).children('input').attr('image_name');
+				var id = $(e).attr('id');
+
+				$(e).on('click', () => {
+					$('a[href*="' + imageName + '"]').click();
+					$('#' + id).removeClass('error');
+				});
+			});
+
+			$('div.ui.dropdown').dropdown({
+				onChange: function (value, text, $selectedItem) {
+					//formFunctions.validateSelections();
+				}
+			});
+		},
+		checkForOptionalAfterFirst: () => {
+			$('input[id^=selected]').each((i, e) => {
+              	let optionalFound = false;
+				if ($(e).attr('optional_after_first') == 'true') {
+
+					var alt = $(e).attr('alt');
+					//check if it's in the product details already
+					var detailsLen = $('.product_details').each((idx, detail) => {
+						console.log(detail);
+						var items = $(detail).val().split(',');
+						for (item in items) {
+                          console.log(items[item].split(':')[0].trim());
+                          
+                          if (items[item].split(':')[0].trim() == alt) {
+                          	optionalFound = true;
+                            break;
+                          };
+						}
+					});
+console.log(optionalFound);
+					if (optionalFound) {
+						//we can remove the drop down as it's already selected
+						$(e).closest('div.column').hide();
+						// set the parent column div to hidden
+						// reset the value
+						$(e).val();
+						// set the optional flag to true
+						$(e).attr('optional', 'true');
+					} else {
+						//it's not set, we need ot make sure it's re-enabled
+						// make sure the parent column div isn't hidden
+						$(e).closest('div.column').show();
+						// set the optional flag to false
+						$(e).attr('optional', 'false');
+					}
+				}
+			});
+		},
+		removeSelection: (e) => {
+			$(e).parents('div.individual_detail')[0].remove();
+			let indivDetailsCount = $('.individual_details').children().length;
+
+			if (indivDetailsCount == 0) {
+				$('.details_header').hide();
+			}
+
+			$('.product_details').each((i, e) => {
+				let newId = i + 1;
+				$(e).attr('name', 'properties[Detail_' + newId + ']');
+				$(e).attr('id', 'product-template-detail_' + newId);
+			});
+
+			formFunctions.checkForOptionalAfterFirst();
+			formFunctions.addButtonControl();
+		},
+		addSelection: () => {
+			if (formFunctions.validateSelections() != false) {
+				//get the form values
+				let newId = 1;
+
+				//need to figure out which detail value we are adding, if ones already been added
+				//TODO: Will need to re-factor this once i start dealing with 'families'
+				if ($('.individual_details').children().length > 0) {
+					let itemId = $($('.individual_details').children()[$('.individual_details').children().length - 1]).children()[0].id
+					newId = parseInt(itemId.split('_')[1]) + 1;
+				}
+
+				var buildString = 'Name: ' + $('#persons-name').val();
+				$('input[id^=selected]').each((i, e) => {
+						if ($(e).val() != '') {
+						buildString += ', ' + $(e).attr('alt') + ': ' + $(e).val();
+					}
+				});
+
+			var htmlString = '<div class="ui raised card individual_detail">';
+			htmlString += '<input type="hidden" class="product_details" id="product-template-detail_' + newId + '" name="properties[Detail_' + newId + ']" value="' + buildString + '">';
+			htmlString += '<div class="content">';
+			htmlString += '<i class="right floated red delete icon" alt="Delete" onclick="formFunctions.removeSelection(this);" style="cursor: pointer;"></i>'
+			htmlString += '<div class="ui red ribbon label">' + $('#persons-name').val() + '</div>';
+			htmlString += '<div class="description">';
+			htmlString += '<div class="ui bulleted list">';
+			$('input[id^=selected]').each((i, e) => {
+				var inputItem = $(e);
+				if (inputItem.val() != '') {
+					htmlString += '<div class="item">' + inputItem.attr('alt') + ': ' + inputItem.val() + '</div>';
+				}
+			});
+
+			htmlString += '</div></div></div></div>';
+
+			$('.individual_details').append(htmlString);
+
+			//reset inputs
+			$('input[id^=selected]').each((i, e) => {
+				var inputItem = $(e);
+				formFunctions.resetDropdown('#' + inputItem.attr('id'), inputItem.attr('placeholder'));
+			});
+			$('#persons-name').val('');
+
+			if ($('.individual_details').children().length > 0) {
+				$('.details_header').show();
+			}
+
+			formFunctions.checkForOptionalAfterFirst();
+			formFunctions.addButtonControl();
+		}
+	},
+	resetDropdown: (dropdownId, defaultText) => {
+		$(dropdownId)
+			.parent()
+			.children('.text')
+			.text(defaultText)
+			.addClass('default');
+		$(dropdownId)
+			.removeAttr('value');
+		$(dropdownId)
+			.parent()
+			.children('.menu')
+			.children('.active.selected')
+			.removeClass('active')
+			.removeClass('selected');
+	},
+	validateField: (fieldId) => {
+		var isValid = ($(fieldId).val().length > 0);
+
+		if (!$(fieldId).parent().hasClass('disabled')) {
+			if (isValid) {
+				$(fieldId).parent().removeClass('error');
+			} else {
+				$(fieldId).parent().addClass('error');
+			}
+		}
+		return isValid;
+	},
+	validateSelections: () => {
+		var isValid = [];
+
+		isValid.push(formFunctions.validateField('#persons-name'));
+
+		$('input[id^=selected]').each((i, e) => {
+			var inputItem = $(e);
+			if (inputItem.attr('optional') == 'false') {
+				isValid.push(formFunctions.validateField('#' + inputItem.attr('id')));
+			}
+		});
+		return (isValid.findIndex(i => i === false) == -1);
+	},
+	addButtonControl: () => {
+		var person_limit = $('input#person_limit').val()
+
+		if ($('.individual_details').children().length >= parseInt(person_limit)) {
+			$('#addCharacter-product-template').addClass('disabled');
+		} else {
+			$('#addCharacter-product-template').removeClass('disabled');
+		}
+
+		if ($('.individual_details').children().length >= person_limit) {
+			$('#AddToCart-' + formFunctions.sectionId).removeAttr('disabled');
+		} else {
+			$('#AddToCart-' + formFunctions.sectionId).attr('disabled', 'disabled');
+		}
+	}
+}
+
+$.getJSON($('input#page_url').val() + '.json', (product) => {
+	productJSON = product
+});
+
+formFunctions.initialize();
+
+$(document).ready(function () {
+	$('#AddToCart-' + formFunctions.sectionId).attr('disabled', 'disabled');
+	$('#AddToCartText-' + formFunctions.sectionId).text(theme.strings.addToCart);
+
+	if ($('.individual_details').children().length == 0) {
+		$('.details_header').hide();
+		$('#AddToCart-product-template').attr('disabled');
+	}
+
+	if ($('div#SingleOptionSelector-0').length == 1) {
+		$('dl.price').addClass('price--unavailable').attr('aria-hidden', 'true');
+	}
+});

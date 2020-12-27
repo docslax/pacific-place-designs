@@ -189,7 +189,8 @@ let formFunctions = {
       .removeClass('selected');
   },
   validateField : function(fieldId) {
-    console.log(fieldId);
+    //check if the field even exists
+    
     var isValid = ($(fieldId).val().length > 0);
     
     if (!$(fieldId).parent().hasClass('disabled')) {
@@ -203,6 +204,7 @@ let formFunctions = {
     return isValid;
   },
   validateSelections : function() {
+    //TODO: this needs to be dynamic to check if the field exists or not!
     var validName = formFunctions.validateField('#person-name');
     var validSkinTone = formFunctions.validateField('#selected-skin-tone');
     var validBodyType = formFunctions.validateField('#selected-body-type');
